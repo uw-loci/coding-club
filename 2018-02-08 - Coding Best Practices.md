@@ -30,11 +30,11 @@ Test-driven development—TDD. Worth reading about!
     import myRandomModule as random
     for i in range(10):
         r = random.random()
-        assert r >= 0.0 && r < 1.0
+        assert r >= 0.0 and r < 1.0
     ```
     Code will not run. There is no `myRandomModule` module.
 2. Get the code to compile and run. But failing. In this case, we create that module, and make that method `random()`.
-3. Then, step 3: make the test pass. All we need here would be `return 0`. NOW we're in business, you have working state.
+3. Then, make the test pass. All we need here would be `return 0`. NOW we're in business, you have working state.
 4. You can then iterate: either make the test more thorough (i.e. assert more than just [0, 1) here). Or you can make the algorithm better.
 
 I used a unix command called `watch` to repeatedly execute tests. Then you can edit your sources and watch the test results MAGICALLY change.
