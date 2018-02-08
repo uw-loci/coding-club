@@ -15,7 +15,7 @@ Curtis wishes someone knew numpy / scipy and gave an awesome workshop on it.
 
 ## Working state to working state
 
-When you make a change, you know that it didn't break anything. You can only know that if you the previous version worked.
+When you make a change, you want to know that it didn't break anything. But you can only know that if the previous version was working. So naturally, we want to have a working version as soon as possible:
 
 1. Get to some working state. MINIMUM. New project, just create a trivial little program.
 2. Then, it's possible to make incremental changes.
