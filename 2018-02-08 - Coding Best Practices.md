@@ -88,14 +88,16 @@ Planning is good. BUT, for large systems, it will be developed iteratively. SMAL
 ## Code style - WHEN IN ROME - CONSISTENCY
 
 It's helpful to mimic the style of whatever codebase you're in.
-For the ImageJ project, we document the desired style here: http://imagej.net/Coding_style
-Good code is self-documenting. The method name describes what it does. The only time you really want a comment is when the code itself doesn't read like human language. One reason for this might be if it violates the Principle of Least Astonishment.
+
+For the ImageJ project, we document the desired style [here](http://imagej.net/Coding_style).
+
+Good code is self-documenting. The method name describes what it does. The only time you really want a comment is when the code itself doesn't read like human language. One reason for this might be if it violates the [Principle of Least Astonishment](https://en.wikipedia.org/wiki/Principle_of_least_astonishment).
 ```python
 x = sin(x) # NB: Be warned! This takes the square root.
 ```
-Above, the comment is important. We cannot change the function name for some reason. (E.g. External library) so we document what it does RIGHT THERE.
+Above, the comment is important. Supposing we cannot change the function name for some reason (e.g. it comes from an external library), we document what it does RIGHT THERE.
 
-Corollary: minimize change of breaking code that is "far away" from your current change. (was reading about Java 10 design choices with `var` and `val` and why they ditched `val`).
+Corollary: minimize chance of [action at a distance errors](https://blog.codefx.org/java/java-10-var-type-inference/#Avoiding-8220Action-At-A-Distance8221-Errors)—i.e., changing code in some place should not lead to a seemingly unrelated error far away.
 
 The other time I use comments is to preface a BLOCK of code. But in that case, strongly consider making a sub-method instead.
 
@@ -103,7 +105,7 @@ The other time I use comments is to preface a BLOCK of code. But in that case, s
 public void go() {
     doStuff();
     
-    // Describe what this x thing is.
+    // Perform some steps to compute a working variable.
     int x = initialValue();
     x += theSum();
     
@@ -111,19 +113,19 @@ public void go() {
 }
 ```
 
-I favor judicious use of whitespace before line comments, to block off what the comment is talking about.
+I favor judicious use of whitespace in the vicinity of line comments, to block off what the comment is talking about. Above, we know that the comment is talking about the lines that work with x, and _not_ really the `doMoreStuff(x)` call or any later lines.
 
 ## Versioning
 
-Pragmatically, most of the world uses [SemVer](http://semver.org/) now. This means the number tells you whether the change is backwards compatible, and whether the change added new API, or just fixed bugs. All of SciJava and ImageJ is done with SemVer.
+Pragmatically, most of the world uses [SemVer](http://semver.org/) now. This means the version number tells you whether the change is backwards compatible, and whether the change added new API, or just fixed bugs. All of SciJava and ImageJ is done with SemVer. This is in contrast to "marketing" versioning, where going from v5 to v6 historically meant "it is shiny and new with lots of new features."
 
 In Java land, we use Maven. This differentiates between SNAPSHOT and RELEASE versions. The rule of thumb is: always depend on release versions, for reproducibility. See [Versioning](http://imagej.net/Versioning) and [Reproducibility](http://imagej.net/Architecture#Reproducible_builds).
 
-The good news is: with Git, you have versions: it's the commit hashes. But best practice is to use tags (a feature of git) to bookmark your releases so that people can always find them easily.
+The good news is: with Git, you always have versions: it's the commit hashes. But best practice is to use tags (a feature of git) to bookmark your releases so that people can always find them easily.
 
 ### When should you make a new version, versus calling it by a new name?
 
-"It depends." But rule of thumb is: do you need the old thing to stick around so that old downstream code using it still works? If yes, but you also want to provide the new thing at the same time, then you really have two things. An example of this is Apache Commons Math. This is Java library for doing math. With v3, they chose a new package prefix `org.apache.commons.math3`. The old v2 is `org.apache.commons.math`.
+"It depends." But rule of thumb is: do you need the old thing to stick around so that old downstream code using it still works? If yes, but you also want to provide the new thing at the same time, then you really have two things. An example of this is [Apache Commons Math](http://commons.apache.org/proper/commons-math/). This is Java library for doing math. With v3, they chose a new package prefix `org.apache.commons.math3`. The old v2 is `org.apache.commons.math`. With that scheme, it is possible for to mix and match usage of both in the same environment easily.
 
 Ask yourself: what's the situation with backwards compatibility?
 
@@ -135,12 +137,16 @@ You should have one. :-)
 
 ## How much should you plan?
 
-Age old debate between "agile" vs the more traditional whitepaper-driven (e.g. "waterfall") design paradigms.
+Classic debate between ["agile"](https://en.wikipedia.org/wiki/Agile_software_development) vs. the more traditional whitepaper-driven (e.g. ["waterfall"](https://en.wikipedia.org/wiki/Waterfall_model)) design paradigms.
 
-First, gather some requirements. This is very important. Understand what users need.
+Either way, first gather some [requirements](https://en.wikipedia.org/wiki/Software_requirements). This is very important. Understand what users need.
 
 But it is easy to get too detailed. Flowcharting every class can be temporarily helpful when the design is complex... but that documentation will never last (in my experience). You get "documentation skew"—the docs are wrong, after the code has evolved.
 
-The tradeoff is the classic "I can do it right, or I can do it fast." We want some balance.
+This tradeoff is (in some ways) a variation of the classic "I can do it right, or I can do it fast." We want some balance.
 
-Super general corollary: It's important to make your process as smooth and easy as possible.
+Very general corollary: It's important to make your process as smooth and easy as possible.
+
+# Next meeting
+
+Next meeting will be SOFTWARE ARCHITECTURE. Curtis will talk about buzzwords like _extensibility_, _encapsulation_, _dependency injection (DI)_, _interoperability_ vs. _integration_, _application containers_ and _plugins_.
