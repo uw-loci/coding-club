@@ -41,7 +41,7 @@ I used a unix command called `watch` to repeatedly execute tests. Then you can e
 
 Corollary: tests should run FAST.
 
-In general, we have the Compile-Edit-Run-Debug cycle. It goes by various names like that.
+In general, we have the Edit-Compile-Run-Debug cycle. It goes by [various names like that](https://www.google.com/search?q=edit+compile+run+debug+cycle).
 If you have things like GUIs, you can look at "robot" frameworks. You can look at mock frameworks in some cases (for things like faking a database connection). But it sucks.
 Corollary: write small, testable functions whenever possible. SEPARATION OF CONCERNS.
 
