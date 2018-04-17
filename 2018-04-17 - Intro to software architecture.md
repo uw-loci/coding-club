@@ -105,11 +105,11 @@ A good way to avoid the design becoming too extensible is to design with
 [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming))
 as a goal.
 
-Think in terms of _interfaces_: the API contract. Do not expose anything else.
+Think in terms of _interfaces_: the API contract. Do not expose anything else. 
 
 ### Dependency injection (DI) and application containers
 
-* Code API to interfaces.
+* Code API to interfaces. : example: if there are multiple implementation for the same output based on hardware, the code can suggest preferenes in the meta-plugin file. a plugin using @ops.gauss* could use preference dialog to choose among different gauss filters gauss_CUDA, gauss_discrete, gauss_1D,etc.
 * Create plugins or extensions implementing those interfaces.
 * These implementations are made available in the runtime environment somehow.
 * The framework takes care of providing the available best implementation,
@@ -119,3 +119,18 @@ Think in terms of _interfaces_: the API contract. Do not expose anything else.
 ## Composition vs. inheritance
 
 See https://stackoverflow.com/a/4913070
+
+
+
+1) Encapsulation vs Interoperatibility : How to choose among keeping the version metadata in (Registry in windows) OR (config-metafiles) OR (User input) : User input is always better to identify version control. Another option is to work on the crumbs left there. eg: Java JRE leaves registry traces, https://stackoverflow.com/questions/5415485/how-to-remove-jre-entries-from-windows-registry that can be used to identify details. But always stick to readable plain text config files. eg: wiscscan chose *.config file instead of binaries.
+
+2) Aplication containers: system architecture finds all the features assemble and give you a sack a tools
+How to choose or index while "assembling a sack" of modules while startup: eg: Scijava annotation processes: source annotation protocol like the metafile json/org.scijava.plugin.plugin
+
+3) API contract: limit to input/output. How to limit the function definitions within private? how does it scale to python with the underscores in naming. https://stackoverflow.com/questions/1301346/what-is-the-meaning-of-a-single-and-a-double-underscore-before-an-object-name
+
+4) Dependency Injection + Modularity in practise (Inversion of Control) suggests a class should not configure its dependencies statically but should be configured from the outside.http://www.vogella.com/tutorials/DependencyInjection/article.html
+eg: Google Guice
+
+
+
