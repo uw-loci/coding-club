@@ -27,6 +27,19 @@ Here are my definitions:
   functioning. For example, KNIME can invoke ImageJ commands and scripts within
   its workflows. So we say ImageJ is _integrated_ into KNIME.
 
+### How can we achieve interoperability?
+
+Rule of thumb: start with command line functionality. With this approach, if
+your software can run on the command line, with only files and stdin/stdout,
+you achieve interoperability with a huge suite of tools structured the same
+way.
+
+* This is more powerful than a "GUI-centric" software.
+  You can always build the GUI on top.
+* Scales better: can run headless on a cluster. More important than ever.
+
+Think about what the inputs and outputs are. Standards.
+
 ## Modularity
 
 __Not modular enough__: A 10 GB software package that does everything. To gain
@@ -46,22 +59,37 @@ proper separation of concerns.
 
 ### When should we split a component in half?
 
-1. If different parts of the code need to be licensed differently.
-   E.g., if one feature has adapted code licensed under the GPL, but
-   the rest of the component's codebase does not need it.
+1. __Licensing.__ If different parts of the code need to be licensed
+   differently. E.g., if one feature has adapted code licensed under the GPL,
+   but the rest of the component's codebase does not need it.
 
-2. If different parts of the code have different dependencies.
-   Especially if one small piece of the code makes uses of large
+2. __Dependencies.__ If different parts of the code have different
+   dependencies. Especially if one small piece of the code makes uses of large
    dependencies that are unneeded elsewhere.
 
-3. If the code contains multiple unrelated feature sets, or the codebase has
-   become large enough that its purpose cannot be explained in a sentence or
-   two. In that case, dividing into subcomponents avoids "bloat" and allows
-   developers to cherry-pick the pieces they need.
+3. __Features and size.__ If the code contains multiple unrelated feature sets,
+   or the codebase has become large enough that its purpose cannot be explained
+   in a sentence or two. In that case, dividing into subcomponents avoids
+   "bloat" and allows developers to cherry-pick the pieces they need.
+   Another rule of thumb on the "per source file" level that I personally like
+   is if it's more than 500 lines of code, split into two files.
+
+### When to use a class, vs. functions?
+
+More generally, the question is _when and how to group functions together_?
+A class is really just a bag of functions and state.
+
+Classes are useful when there is state. So: persistent information across functions.
+
+* "A class should only do one thing."
+* "A method or function should only do one thing."
+
+Even without classes, _modules_ are very useful for grouping related
+collections of functionality.
+
+For naming: write out the calling code. See also Test Driven Development.
 
 ## Extensibility
-
-The two extremes:
 
 __Not extensible enough__ - A closed source project with no public API,
 offering an "all-in-one" black box solution for all needs. If the program falls
@@ -77,10 +105,17 @@ A good way to avoid the design becoming too extensible is to design with
 [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming))
 as a goal.
 
-### Dependency injection (DI)
+Think in terms of _interfaces_: the API contract. Do not expose anything else.
 
-### Application containers
+### Dependency injection (DI) and application containers
+
+* Code API to interfaces.
+* Create plugins or extensions implementing those interfaces.
+* These implementations are made available in the runtime environment somehow.
+* The framework takes care of providing the available best implementation,
+  when downstream code wants an object conforming to that interface.
+* See e.g. https://imagej.github.io/tutorials "Fundamentals of ImageJ" tutorial.
 
 ## Composition vs. inheritance
 
-https://stackoverflow.com/a/4913070/1207769
+See https://stackoverflow.com/a/4913070
