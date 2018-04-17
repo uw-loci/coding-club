@@ -121,6 +121,7 @@ Think in terms of _interfaces_: the API contract. Do not expose anything else.
 See https://stackoverflow.com/a/4913070
 
 
+## Notes
 
 1) Encapsulation vs Interoperatibility : How to choose among keeping the version metadata in (Registry in windows) OR (config-metafiles) OR (User input) : User input is always better to identify version control. Another option is to work on the crumbs left there. eg: Java JRE leaves registry traces, https://stackoverflow.com/questions/5415485/how-to-remove-jre-entries-from-windows-registry that can be used to identify details. But always stick to readable plain text config files. eg: wiscscan chose *.config file instead of binaries.
 
