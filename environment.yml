@@ -1,4 +1,4 @@
-name: scijava
+name: coding-club
 channels:
   - damianavila82
   - conda-forge
@@ -6,10 +6,15 @@ channels:
 dependencies:
   - python
   - numpy
-  - scipy
-  - scikit-image
+  - cython
+  - dask
   - matplotlib
+  - numba
   - pandas
+  - scikit-image
+  - scikit-learn
+  - scipy
+  - tifffile
   - bokeh
   - rise
   - scijava-jupyter-kernel
